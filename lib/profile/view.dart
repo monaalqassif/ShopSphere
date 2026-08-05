@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../widgets/interactive.dart';
 import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
@@ -5,6 +7,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser;
+    final userName = user?.email?.split('@').first ?? 'User';
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -18,12 +24,14 @@ class ProfileScreen extends StatelessWidget {
                 child: Icon(Icons.person,size: 55,color: Colors.grey,),
               ),
               SizedBox(height: 10),
-              Text('Name',
-                style: TextStyle(
+              Text(
+                userName,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                ),),
+                ),
+              ),
               SizedBox(height: 35),
               Interactivetile(title:'Profile', icon: Icons.person),
 
@@ -41,7 +49,9 @@ class ProfileScreen extends StatelessWidget {
               Spacer(),
 
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
                 child: const Text(
                   'Sign Out',
                   style: TextStyle(
@@ -49,6 +59,7 @@ class ProfileScreen extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),),),
+              SizedBox(height: 16,),
             ],
           ),
         ),),
