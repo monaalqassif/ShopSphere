@@ -13,6 +13,8 @@ import 'package:final_project/profile/view.dart';
 import 'package:final_project/search/view.dart';
 import 'package:flutter/material.dart';
 
+import '../products_Screen/view.dart';
+
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
@@ -23,20 +25,24 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _page = 0;
 
-  final List<Widget> _pages = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const CartScreen(),
-    const ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      const HomeScreen(),
+      const SearchScreen(),
+      CartScreen(),
+      const ProfileScreen(),
+    ];
+
     return Scaffold(
       body: IndexedStack(
         index: _page,
         children: _pages,
       ),
+
+
+
+
       bottomNavigationBar: CurvedNavigationBar(
         index: 0,
         items: [

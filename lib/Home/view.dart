@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../products_Screen/view.dart';
 import '../widgets/product_item.dart';
 import '../widgets/banner_item.dart';
 
@@ -162,11 +163,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
-                    "See All",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xff5A4FCF),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ProductListScreen()),
+                      );
+                    },
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff5A4FCF),
+                      ),
                     ),
                   ),
                 ],
@@ -231,11 +240,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
-                    "See All",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xff5A4FCF),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ProductListScreen()),
+                      );
+                    },
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff5A4FCF),
+                      ),
                     ),
                   ),
                 ],
