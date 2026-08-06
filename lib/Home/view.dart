@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> featuredNames = ["Watch", "Nike Shoes", "Airpods"];
+  List<String> featuredNames = ["Watch", "Nike Shoes", "Airpods Pro"];
   List<String> featuredImages = [
     "assets/images/watch.png",
     "assets/images/shoes.png",
