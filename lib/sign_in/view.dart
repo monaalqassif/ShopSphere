@@ -88,7 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 keyboardType: TextInputType.emailAddress,
                 enabled: !_isLoading,
                 decoration: InputDecoration(
-                  hintText: 'User Name',
+                  hintText: 'Enter your email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(color: Colors.grey.shade300),

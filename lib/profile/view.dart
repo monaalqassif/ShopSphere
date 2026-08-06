@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../widgets/interactive.dart';
 import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
@@ -36,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
               Interactivetile(title:'Profile', icon: Icons.person),
 
               SizedBox(height: 12),
-              Interactivetile(title:'Setting', icon: Icons.settings),
+              Interactivetile(title:'Settings', icon: Icons.settings),
 
               SizedBox(height: 12),
               Interactivetile(title:'Contact', icon: Icons.email_rounded),

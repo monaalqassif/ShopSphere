@@ -4,8 +4,6 @@
 // git commit -m "Update README"
 // git push origin main
 
-
-
 import 'package:final_project/sign_in/view.dart';
 import 'package:final_project/widgets/interactive.dart';
 import 'package:final_project/widgets/navigator_bar.dart';
@@ -15,7 +13,6 @@ import 'package:final_project/sign_up/view.dart';
 import 'package:flutter/material.dart';
 import 'auth_gate/view.dart';
 import 'firebase_options.dart';
-
 import 'Home/view.dart';
 
 
