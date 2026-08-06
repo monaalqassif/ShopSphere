@@ -11,8 +11,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-final user = FirebaseAuth.instance.currentUser;
-final userName = user?.email?.split('@').first ?? 'User';
+
 
 
 
@@ -63,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final userName = user?.email?.split('@').first ?? 'User';
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
