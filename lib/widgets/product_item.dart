@@ -7,14 +7,14 @@ class ProductItem extends StatelessWidget {
   final String productName;
   final String productImage;
   final String price;
-  final bool isSelected;
+
 
   const ProductItem({
     super.key,
     required this.productName,
     required this.productImage,
     required this.price,
-    required this.isSelected,
+
   });
 
   @override
@@ -26,10 +26,7 @@ class ProductItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xffF8F8F8),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isSelected ? const Color(0xff5A4FCF) : Colors.transparent,
-          width: 2,
-        ),
+
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

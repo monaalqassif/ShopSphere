@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../products_Screen/view.dart';
 import '../widgets/product_item.dart';
 import '../widgets/banner_item.dart';
-
+import '../search/view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +11,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+final user = FirebaseAuth.instance.currentUser;
+final userName = user?.email?.split('@').first ?? 'User';
 
 
 
@@ -57,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
-  int selectedCategory = -1;
-  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  "Name",
-                  style: TextStyle(
-                    fontSize: 18,
+                  userName,
+                  style: const TextStyle(
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -126,22 +127,45 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
 
               SizedBox(height: 16),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: "Search here",
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  filled: true,
-                  fillColor: const Color(0xffF8F7F7),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: const BorderSide(color: Color(0xffF8F7F7)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    borderSide: const BorderSide(color: Color(0xff5A4FCF)),
+
+
+
+              SizedBox(height: 16),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Search here",
+                      prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      filled: true,
+                      fillColor: const Color(0xffF8F7F7),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: const BorderSide(color: Color(0xffF8F7F7)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: const BorderSide(color: Color(0xff5A4FCF)),
+                      ),
+                    ),
                   ),
                 ),
               ),
+
+
+
+
+
+
+
               SizedBox(height: 20),
               BannerItem(banners: banners),
               SizedBox(height: 20),
@@ -201,15 +225,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: List.generate(
                     featuredNames.length,
                         (i) => GestureDetector(
-                      onTap: () => setState(() {
-                        selectedCategory = 1;
-                        selectedIndex = i;
-                      }),
+                      onTap: () {
+                        final product = dummyProducts.firstWhere(
+                              (p) => p.name == featuredNames[i],
+                          orElse: () => dummyProducts[0],
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailsScreen(product: product),
+                          ),
+                        );
+                      },
                       child: ProductItem(
                         productName: featuredNames[i],
                         productImage: featuredImages[i],
                         price: featuredPrices[i],
-                        isSelected: selectedCategory == 1 && selectedIndex == i,
+
                       ),
                     ),
                   ),
@@ -276,15 +308,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: List.generate(
                     popularNames.length,
                         (i) => GestureDetector(
-                      onTap: () => setState(() {
-                        selectedCategory = 2;
-                        selectedIndex = i;
-                      }),
+                      onTap: () {
+                        final product = dummyProducts.firstWhere(
+                              (p) => p.name == popularNames[i],
+                          orElse: () => dummyProducts[0],
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailsScreen(product: product),
+                          ),
+                        );
+                      },
                       child: ProductItem(
                         productName: popularNames[i],
                         productImage: popularImages[i],
                         price: popularPrices[i],
-                        isSelected: selectedCategory == 2 && selectedIndex == i,
                       ),
                     ),
                   ),

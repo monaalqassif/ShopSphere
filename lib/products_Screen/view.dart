@@ -239,7 +239,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             backgroundColor: Colors.white,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {},
+              onPressed: () {Navigator.pop(context);},
             ),
           ),
         ),
