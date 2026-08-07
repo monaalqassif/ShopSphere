@@ -79,7 +79,7 @@ class _SignInScreenState extends State<SignInScreen> {
               BannerItem(banners: banners),
               const SizedBox(height: 32),
               const Text(
-                'Enter your name',
+                'Email:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
@@ -101,7 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: 24),
               const Text(
-                'Password',
+                'Password:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
