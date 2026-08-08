@@ -7,23 +7,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 class HomeScreen extends StatelessWidget {
  HomeScreen({super.key});
 
-  List<String> featuredNames = ["Watch", "Nike Shoes", "Airpods Pro"];
-  List<String> featuredImages = [
+ final List<String> featuredNames = ["Watch", "Nike Shoes", "Airpods Pro"];
+ final List<String> featuredImages = [
     "assets/images/watch.png",
     "assets/images/shoes.png",
     "assets/images/Airpods.png",
   ];
-  List<String> featuredPrices = [r"$40", r"$430", r"$333"];
+ final List<String> featuredPrices = [r"$40", r"$430", r"$333"];
 
-  List<String> popularNames = ["LG TV", "Hoodie", "Jacket"];
-  List<String> popularImages = [
+ final List<String> popularNames = ["LG TV", "Hoodie", "Jacket"];
+ final List<String> popularImages = [
     "assets/images/lg tv.png",
     "assets/images/hoodie.png",
     "assets/images/jacket.png",
   ];
-  List<String> popularPrices = [r"$330", r"$50", r"$400"];
+ final List<String> popularPrices = [r"$330", r"$50", r"$400"];
 
-  List<Map<String, String>> banners = [
+ final List<Map<String, String>> banners = [
     {
       "image": "assets/images/logo.png",
       "title": "Get Winter Discount",

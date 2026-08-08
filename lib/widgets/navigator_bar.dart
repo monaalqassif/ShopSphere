@@ -28,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
-       HomeScreen(),
+      HomeScreen(),
       const SearchScreen(),
       CartScreen(),
       const ProfileScreen(),
