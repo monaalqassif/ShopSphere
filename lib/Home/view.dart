@@ -4,18 +4,9 @@ import '../widgets/product_item.dart';
 import '../widgets/banner_item.dart';
 import '../search/view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+class HomeScreen extends StatelessWidget {
+ HomeScreen({super.key});
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-
-
-
-class _HomeScreenState extends State<HomeScreen> {
   List<String> featuredNames = ["Watch", "Nike Shoes", "Airpods Pro"];
   List<String> featuredImages = [
     "assets/images/watch.png",
