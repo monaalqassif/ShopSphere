@@ -694,6 +694,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             setState(() {
                               AppState.increment(widget.product.id);
                             });
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('The product has been added to the cart successfully.'),
+                              ),
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14),
