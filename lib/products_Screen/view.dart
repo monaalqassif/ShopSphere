@@ -1,4 +1,10 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+
+import '../cart/view.dart';
 
 class Product {
   final String id;
@@ -447,6 +453,36 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int selectedSizeIndex = 0;
 
+
+  Future<void> addToFirestoreCart({
+    required Product product,
+    required String selectedSize,
+    int quantity = 1,
+  }) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final cartRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('cart')
+        .doc(product.id);
+
+
+    await cartRef.set({
+      'id': product.id,
+      'name': product.name,
+      'price': product.price,
+      'imagePath': product.imagePath,
+      'size': selectedSize,
+      'quantity': quantity,
+      'createdAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final isFav = AppState.isFavorite(widget.product.id);
@@ -661,7 +697,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Expanded(
                         flex: 4,
-                        child: ElevatedButton(
+
+
+
+
+
+                        child:ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6C5CE7),
                             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -669,12 +710,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (quantity == 0) {
                               setState(() {
                                 AppState.increment(widget.product.id);
                               });
                             }
+
+                            final selectedSize = widget.product.sizes[selectedSizeIndex];
+                            final currentQty = AppState.quantityOf(widget.product.id);
+
+                            await addToFirestoreCart(
+                              product: widget.product,
+                              selectedSize: selectedSize,
+                              quantity: currentQty,
+                            );
+
+
                           },
                           child: const Text(
                             'Buy Now',
@@ -684,22 +736,45 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
+                        )
+
+
+
+
+
+
+
+
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         flex: 1,
+
+
+
                         child: GestureDetector(
-                          onTap: () {
+
+                          onTap: () async {
                             setState(() {
                               AppState.increment(widget.product.id);
                             });
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('The product has been added to the cart successfully.'),
-                              ),
+                            final selectedSize = widget.product.sizes[selectedSizeIndex];
+                            final currentQty = AppState.quantityOf(widget.product.id);
+
+                            await addToFirestoreCart(
+                              product: widget.product,
+                              selectedSize: selectedSize,
+                              quantity: currentQty,
                             );
+
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('The product has been added to the cart successfully.'),
+                                ),
+                              );
+                            }
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14),
@@ -712,7 +787,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               color: Colors.black54,
                             ),
                           ),
-                        ),
+                        )
                       ),
                     ],
                   ),
