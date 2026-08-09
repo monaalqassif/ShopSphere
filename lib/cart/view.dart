@@ -225,15 +225,37 @@ class CartScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
-                            for (var item in cartItems) {
-                              await item.reference.delete();
-                            }
-                            await FirebaseFirestore.instance
+                            // Build the order payload from the current cart items
+                            final orderItems = cartItems.map((doc) {
+                              final data = doc.data() as Map<String, dynamic>;
+                              return {
+                                'id': data['id'],
+                                'name': data['name'],
+                                'price': data['price'],
+                                'imagePath': data['imagePath'],
+                                'size': data['size'],
+                                'quantity': data['quantity'],
+                              };
+                            }).toList();
+
+                            // Create the order document in Firestore FIRST
+                            final orderRef = FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(uid)
                                 .collection('orders')
-                                .doc('active_order')
-                                .delete();
+                                .doc();
+
+                            await orderRef.set({
+                              'items': orderItems,
+                              'total': totalPrice,
+                              'status': 'placed',
+                              'createdAt': FieldValue.serverTimestamp(),
+                            });
+
+                            // Only clear the cart once the order was saved successfully
+                            for (var item in cartItems) {
+                              await item.reference.delete();
+                            }
 
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
